@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0d1b2a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="PsychPharma">
+<title>PsychPharma — Antidepressiva</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Sans:wght@300;400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="app-header">
+  <div class="app-title">Psych<span>Pharma</span></div>
+  <div class="search-wrap">
+    <span class="search-icon">⌕</span>
+    <input class="search-input" type="text" id="search" placeholder="Suchen..." oninput="handleSearch()">
+  </div>
+</header>
+
+<div class="view-toggle">
+  <button class="view-btn active" onclick="setView('meds', this)">Medikamente</button>
+  <button class="view-btn"       onclick="setView('rezept', this)">Rezeptoren</button>
+</div>
+
+<div class="filter-bar" id="filter-bar">
+  <button class="pill active" data-filter="all" onclick="setFilter('all', this)">Alle</button>
+  <button class="pill" data-filter="SSRI" onclick="setFilter('SSRI', this)">SSRI</button>
+  <button class="pill" data-filter="SNRI" onclick="setFilter('SNRI', this)">SNRI</button>
+  <button class="pill" data-filter="TZA" onclick="setFilter('TZA', this)">Trizyklika</button>
+  <button class="pill" data-filter="MAO" onclick="setFilter('MAO', this)">MAO-Hemmer</button>
+  <button class="pill" data-filter="NRI" onclick="setFilter('NRI', this)">NRI</button>
+  <button class="pill" data-filter="Andere" onclick="setFilter('Andere', this)">Andere</button>
+</div>
+
+<div class="main">
+  <div class="sidebar" id="sidebar"></div>
+  <div class="detail" id="detail">
+    <div class="detail-empty">
+      <div class="big">⊕</div>
+      <p>Wähle ein Medikament<br>aus der Liste</p>
+    </div>
+  </div>
+</div>
+
+<script src="data/medications.js"></script>
+<script src="data/receptors.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
