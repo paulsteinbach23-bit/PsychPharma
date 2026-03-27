@@ -6,6 +6,19 @@ No installation, no backend, no build step — open `psychiatrie_app.html` direc
 
 ---
 
+## Progressive Web App
+
+PsychPharma is installable as a PWA on any device:
+- **Android / Chrome:** "Add to Home Screen" im Browser-Menü
+- **iOS / Safari:** Teilen → "Zum Home-Bildschirm"
+- **Desktop / Chrome:** Installations-Icon in der Adressleiste
+
+Alle Inhalte sind vollständig **offline verfügbar** — der Service Worker cached alle Dateien beim ersten Aufruf.
+
+> **Note:** PWA features require serving over HTTPS or `localhost`. For local development use `python3 -m http.server 8080` and open `http://localhost:8080/psychiatrie_app.html`.
+
+---
+
 ## Features
 
 ### Medikamente

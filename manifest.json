@@ -1,0 +1,27 @@
+{
+  "name": "PsychPharma",
+  "short_name": "PsychPharma",
+  "description": "Psychiatrische Pharmakologie — Antidepressiva & Rezeptoren",
+  "start_url": "./psychiatrie_app.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0d1b2a",
+  "theme_color": "#0d1b2a",
+  "lang": "de",
+  "categories": ["medical", "education"],
+  "icons": [
+    {
+      "src": "icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ]
+}
