@@ -7,7 +7,7 @@ const ASSETS = [
   './data/medications.js',
   './data/receptors.js',
   './manifest.json',
-  './icons/icon.svg',
+  './icons/icon.png',
 ];
 
 // Install: cache all local assets
