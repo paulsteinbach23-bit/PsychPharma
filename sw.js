@@ -1,7 +1,7 @@
 const CACHE = 'psychpharma-v1';
 
 const ASSETS = [
-  './psychiatrie_app.html',
+  './index.html',
   './app.js',
   './style.css',
   './data/medications.js',

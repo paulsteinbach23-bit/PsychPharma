@@ -2,7 +2,7 @@
   "name": "PsychPharma",
   "short_name": "PsychPharma",
   "description": "Psychiatrische Pharmakologie — Antidepressiva & Rezeptoren",
-  "start_url": "./psychiatrie_app.html",
+  "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
   "orientation": "any",

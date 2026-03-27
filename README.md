@@ -2,7 +2,7 @@
 
 A client-side reference app for psychiatric pharmacology, designed for German-speaking healthcare professionals and medical students.
 
-No installation, no backend, no build step — open `psychiatrie_app.html` directly in any modern browser.
+No installation, no backend, no build step — open `index.html` directly in any modern browser.
 
 ---
 
@@ -15,7 +15,7 @@ PsychPharma is installable as a PWA on any device:
 
 Alle Inhalte sind vollständig **offline verfügbar** — der Service Worker cached alle Dateien beim ersten Aufruf.
 
-> **Note:** PWA features require serving over HTTPS or `localhost`. For local development use `python3 -m http.server 8080` and open `http://localhost:8080/psychiatrie_app.html`.
+> **Note:** PWA features require serving over HTTPS or `localhost`. For local development use `python3 -m http.server 8080` and open `http://localhost:8080/index.html`.
 
 ---
 
@@ -50,9 +50,9 @@ git clone https://github.com/<your-username>/PsychPharma.git
 cd PsychPharma
 
 # Open directly in the browser — no server needed
-open psychiatrie_app.html        # macOS
-xdg-open psychiatrie_app.html   # Linux
-start psychiatrie_app.html       # Windows
+open index.html        # macOS
+xdg-open index.html   # Linux
+start index.html       # Windows
 ```
 
 > **Note:** The app uses plain `<script>` tags (no ES modules), so it works with `file://` URLs without a local server.
@@ -63,7 +63,7 @@ start psychiatrie_app.html       # Windows
 
 ```
 PsychPharma/
-├── psychiatrie_app.html   # Entry point — full app shell & layout
+├── index.html   # Entry point — full app shell & layout
 ├── app.js                 # All application logic (rendering, state, routing)
 ├── style.css              # Dark theme, CSS Grid layout, all component styles
 └── data/
@@ -97,7 +97,7 @@ Add an object to the `MEDS` array in `data/medications.js` following the existin
 ### Adding a Medication Class
 
 1. Add an entry to `CLASSES` in `app.js` with a key, `color`, `bg`, and `border`.
-2. Add a filter button in the `.filter-bar` section of `psychiatrie_app.html`.
+2. Add a filter button in the `.filter-bar` section of `index.html`.
 3. Add medications with that key as their `klasse`.
 
 ---
