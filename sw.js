@@ -1,13 +1,15 @@
-const CACHE = 'psychpharma-v2';
+const CACHE = 'psychpharma-v3';
 
 const ASSETS = [
   './index.html',
   './app.js',
+  './quiz.js',
   './style.css',
   './data/medications.js',
   './data/receptors.js',
   './data/krankheitsbilder/depression.js',
   './data/krankheitsbilder/ptbs.js',
+  './data/quiz-fakten.js',
   './manifest.json',
   './icons/icon.png',
 ];

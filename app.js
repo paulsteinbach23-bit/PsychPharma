@@ -170,13 +170,23 @@ function renderHub() {
           <span class="hub-pill" style="background:rgba(255,169,77,0.08);color:#ffa94d;border:1px solid rgba(255,169,77,0.2)">PTBS</span>
         </div>
       </div>
+      <div class="hub-card hub-card-quiz" onclick="setView('quiz', null)">
+        <div class="hub-card-icon">◎</div>
+        <div class="hub-card-title">Übungen</div>
+        <div class="hub-card-sub">Quiz und Karteikarten zu Medikamenten, Rezeptoren und Krankheitsbildern</div>
+        <div class="hub-card-pills">
+          <span class="hub-pill" style="background:rgba(79,195,247,0.08);color:var(--accent);border:1px solid rgba(79,195,247,0.2)">Quiz</span>
+          <span class="hub-pill" style="background:rgba(79,195,247,0.08);color:var(--accent);border:1px solid rgba(79,195,247,0.2)">Karteikarten</span>
+          <span class="hub-pill" style="background:rgba(79,195,247,0.08);color:var(--accent);border:1px solid rgba(79,195,247,0.2)">Fortschritt</span>
+        </div>
+      </div>
     </div>`;
 }
 
 function goHub() { setView('hub', null); }
 
 function handleSearch() {
-  if (activeView === 'hub') return;
+  if (activeView === 'hub' || activeView === 'quiz') return;
   if (activeView === 'meds') renderSidebar();
   else if (activeView === 'rezept') renderReceptorSidebar();
   else renderKrankheitsbilderSidebar();
@@ -197,6 +207,13 @@ function setView(view, el) {
   );
 
   if (isHub) { renderHub(); return; }
+
+  if (view === 'quiz') {
+    document.getElementById('main').classList.add('hub-layout');
+    document.getElementById('search').closest('.search-wrap').style.display = 'none';
+    window.renderQuizLanding();
+    return;
+  }
 
   const labels = { meds: 'ein Medikament', rezept: 'einen Rezeptor', krankheit: 'ein Krankheitsbild' };
   document.getElementById('detail').innerHTML = `
