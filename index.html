@@ -17,17 +17,13 @@
 <body>
 
 <header class="app-header">
-  <div class="app-title">Psych<span>Pharma</span></div>
+  <div class="app-title" onclick="goHub()">Psych<span>Pharma</span></div>
+  <button class="back-btn" id="back-btn" onclick="goHub()">← Übersicht</button>
   <div class="search-wrap">
     <span class="search-icon">⌕</span>
     <input class="search-input" type="text" id="search" placeholder="Suchen..." oninput="handleSearch()">
   </div>
 </header>
-
-<div class="view-toggle">
-  <button class="view-btn active" onclick="setView('meds', this)">Medikamente</button>
-  <button class="view-btn"       onclick="setView('rezept', this)">Rezeptoren</button>
-</div>
 
 <div class="filter-bar" id="filter-bar">
   <button class="pill active" data-filter="all" onclick="setFilter('all', this)">Alle</button>
@@ -39,7 +35,7 @@
   <button class="pill" data-filter="Andere" onclick="setFilter('Andere', this)">Andere</button>
 </div>
 
-<div class="main">
+<div class="main" id="main">
   <div class="sidebar" id="sidebar"></div>
   <div class="detail" id="detail">
     <div class="detail-empty">
@@ -56,6 +52,8 @@
 </script>
 <script src="data/medications.js"></script>
 <script src="data/receptors.js"></script>
+<script src="data/krankheitsbilder/depression.js"></script>
+<script src="data/krankheitsbilder/ptbs.js"></script>
 <script src="app.js"></script>
 </body>
 </html>

@@ -330,31 +330,26 @@ body {
   font-weight: 500;
 }
 
-/* VIEW TOGGLE */
-.view-toggle {
-  display: flex;
-  gap: 0.5rem;
-  padding: 0.55rem 1.2rem;
-  border-bottom: 1px solid var(--border);
-  background: var(--bg);
-}
-
-.view-btn {
-  padding: 0.3rem 1rem;
-  border-radius: 20px;
-  font-size: 0.72rem;
-  font-weight: 500;
-  font-family: 'IBM Plex Mono', monospace;
-  letter-spacing: 0.04em;
-  cursor: pointer;
-  border: 1px solid var(--border2);
-  color: var(--text-dim);
+/* BACK BUTTON */
+.back-btn {
   background: transparent;
-  transition: all 0.15s;
+  border: none;
+  color: var(--text-dim);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+  transition: color 0.15s, background 0.15s;
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
-.view-btn:hover { color: var(--text); border-color: var(--text-dim); }
-.view-btn.active { background: var(--accent); color: var(--bg); border-color: transparent; }
+.back-btn:hover {
+  color: var(--text-muted);
+  background: rgba(255,255,255,0.04);
+}
 
 /* RECEPTOR DOT & BADGE */
 .rec-dot { background: var(--accent); opacity: 0.7; }
@@ -427,4 +422,134 @@ body {
   text-align: center;
   color: var(--text-dim);
   font-size: 0.8rem;
+}
+
+/* KRANKHEITSBILDER */
+.kb-intro {
+  color: var(--text-muted);
+  font-style: italic;
+  margin-bottom: 1rem;
+  line-height: 1.75;
+}
+
+.kb-gruppe {
+  margin-bottom: 1.1rem;
+}
+
+.kb-gruppe:last-child {
+  margin-bottom: 0;
+}
+
+.kb-gruppe-titel {
+  font-size: 0.67rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 500;
+  color: var(--accent);
+  letter-spacing: 0.07em;
+  margin-bottom: 0.45rem;
+  padding-bottom: 0.3rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.merke-card {
+  background: rgba(79, 195, 247, 0.05);
+  border: 1px solid rgba(79, 195, 247, 0.18);
+  border-radius: 10px;
+  padding: 1.1rem 1.2rem;
+  grid-column: 1 / -1;
+}
+
+.merke-title {
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-family: 'IBM Plex Mono', monospace;
+  margin-bottom: 0.7rem;
+  font-weight: 500;
+}
+
+/* HUB / LANDING PAGE */
+.app-title { cursor: pointer; }
+
+.main.hub-layout { grid-template-columns: 1fr; }
+.main.hub-layout .sidebar { display: none; }
+
+.hub-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.2rem;
+  padding: 2.5rem;
+  max-width: 900px;
+  margin: 0 auto;
+  align-content: start;
+}
+
+.hub-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.8rem 1.6rem;
+  cursor: pointer;
+  transition: border-color 0.18s, background 0.18s, transform 0.15s;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-height: 200px;
+}
+
+.hub-card:hover {
+  background: var(--surface2);
+  border-color: var(--border2);
+  transform: translateY(-2px);
+}
+
+.hub-card-icon {
+  font-size: 1.5rem;
+  opacity: 0.3;
+  color: var(--accent);
+  line-height: 1;
+  margin-bottom: 0.1rem;
+}
+
+.hub-card-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.45rem;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  line-height: 1.15;
+}
+
+.hub-card-sub {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-weight: 300;
+  line-height: 1.55;
+  flex: 1;
+}
+
+.hub-card-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.3rem;
+}
+
+.hub-pill {
+  font-size: 0.6rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  padding: 2px 8px;
+  border-radius: 20px;
+}
+
+@media (max-width: 700px) {
+  .hub-grid {
+    grid-template-columns: 1fr;
+    padding: 1.2rem;
+    gap: 0.9rem;
+  }
+  .hub-card { min-height: 160px; }
 }
