@@ -1,4 +1,4 @@
-const CACHE = 'psychpharma-v4';
+const CACHE = 'psychpharma-v5';
 
 const ASSETS = [
   './index.html',
@@ -36,26 +36,25 @@ self.addEventListener('activate', event => {
   self.clients.claim();
 });
 
-// Fetch: cache-first for local assets, network-only for external (fonts etc.)
+// Fetch: network-first for local assets (immer aktuell), Fallback auf Cache
 self.addEventListener('fetch', event => {
   const url = new URL(event.request.url);
 
-  // Let external requests (Google Fonts etc.) pass through to network
+  // Externe Requests (Google Fonts etc.) direkt ans Netz
   if (url.origin !== self.location.origin) {
     return;
   }
 
   event.respondWith(
-    caches.match(event.request).then(cached => {
-      if (cached) return cached;
-      return fetch(event.request).then(response => {
-        // Cache new local resources on the fly
+    fetch(event.request)
+      .then(response => {
+        // Aktuelle Version in Cache speichern
         if (response.ok) {
           const clone = response.clone();
           caches.open(CACHE).then(cache => cache.put(event.request, clone));
         }
         return response;
-      });
-    })
+      })
+      .catch(() => caches.match(event.request))
   );
 });
