@@ -51,10 +51,10 @@ body {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(13, 27, 42, 0.95);
-  backdrop-filter: blur(12px);
+  background: #0d1b2a;
   border-bottom: 1px solid var(--border);
   padding: 0.9rem 1.2rem;
+  padding-top: calc(0.9rem + env(safe-area-inset-top));
   display: flex;
   align-items: center;
   gap: 1rem;
