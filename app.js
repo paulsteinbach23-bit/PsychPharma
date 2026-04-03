@@ -5,6 +5,8 @@ const CLASSES = {
   MAO:    { color: '#ff8787', bg: '#3e0d0d', border: '#6b1a1a' },
   NRI:    { color: '#ffa94d', bg: '#3e2000', border: '#6b3a00' },
   Andere: { color: '#a9e34b', bg: '#1e3000', border: '#3a5500' },
+  AAP:    { color: '#4fc3f7', bg: '#01303f', border: '#1565c0' },
+  KAP:    { color: '#ff8a65', bg: '#3e1a0d', border: '#6d2f0f' },
 };
 
 let activeFilter = 'all';
@@ -52,7 +54,7 @@ function renderSidebar() {
     groups[m.klasse].push(m);
   });
 
-  const order = ['SSRI', 'SNRI', 'TZA', 'MAO', 'NRI', 'Andere'];
+  const order = ['SSRI', 'SNRI', 'TZA', 'MAO', 'NRI', 'Andere', 'AAP', 'KAP'];
   let html = '';
 
   order.forEach(klasse => {
@@ -75,8 +77,7 @@ function renderSidebar() {
 function showMed(name) {
   activeMed = MEDS.find(m => m.name === name);
   if (!activeMed) return;
-  renderSidebar();
-  renderDetail();
+  setView('med-detail', null);
 }
 
 function renderDetail() {
@@ -133,22 +134,24 @@ function renderDetail() {
         <div class="section-content">${m.cave}</div>
       </div>
     </div>
+    <div id="mini-quiz-wrap" class="mini-quiz-wrap"></div>
   `;
+  if (window.initMiniQuiz) window.initMiniQuiz('med', m);
 }
 
 function renderHub() {
   document.getElementById('detail').innerHTML = `
     <div class="hub-grid">
-      <div class="hub-card" onclick="setView('meds', null)">
+      <div class="hub-card" onclick="setView('meds-hub', null)">
         <div class="hub-card-icon">⊕</div>
         <div class="hub-card-title">Medikamente</div>
-        <div class="hub-card-sub">Antidepressiva nach Klasse durchsuchen</div>
+        <div class="hub-card-sub">Antidepressiva &amp; Antipsychotika nach Klasse</div>
         <div class="hub-card-pills">
           <span class="hub-pill" style="background:var(--ssri-bg);color:var(--ssri);border:1px solid var(--ssri-border)">SSRI</span>
           <span class="hub-pill" style="background:var(--snri-bg);color:var(--snri);border:1px solid var(--snri-border)">SNRI</span>
           <span class="hub-pill" style="background:var(--tza-bg);color:var(--tza);border:1px solid var(--tza-border)">TZA</span>
-          <span class="hub-pill" style="background:var(--mao-bg);color:var(--mao);border:1px solid var(--mao-border)">MAO</span>
-          <span class="hub-pill" style="background:var(--nri-bg);color:var(--nri);border:1px solid var(--nri-border)">NRI</span>
+          <span class="hub-pill" style="background:rgba(79,195,247,0.1);color:#4fc3f7;border:1px solid rgba(79,195,247,0.3)">AAP</span>
+          <span class="hub-pill" style="background:rgba(255,138,101,0.1);color:#ff8a65;border:1px solid rgba(255,138,101,0.3)">KAP</span>
         </div>
       </div>
       <div class="hub-card" onclick="setView('rezept', null)">
@@ -183,10 +186,65 @@ function renderHub() {
     </div>`;
 }
 
-function goHub() { setView('hub', null); }
+function renderMedsHub() {
+  document.getElementById('detail').innerHTML = `
+    <div class="hub-grid">
+      <div class="hub-card" onclick="goMedsAD()">
+        <div class="hub-card-icon">⊕</div>
+        <div class="hub-card-title">Antidepressiva</div>
+        <div class="hub-card-sub">SSRI, SNRI, Trizyklika, MAO-Hemmer und weitere</div>
+        <div class="hub-card-pills">
+          <span class="hub-pill" style="background:var(--ssri-bg);color:var(--ssri);border:1px solid var(--ssri-border)">SSRI</span>
+          <span class="hub-pill" style="background:var(--snri-bg);color:var(--snri);border:1px solid var(--snri-border)">SNRI</span>
+          <span class="hub-pill" style="background:var(--tza-bg);color:var(--tza);border:1px solid var(--tza-border)">TZA</span>
+          <span class="hub-pill" style="background:var(--mao-bg);color:var(--mao);border:1px solid var(--mao-border)">MAO</span>
+          <span class="hub-pill" style="background:var(--nri-bg);color:var(--nri);border:1px solid var(--nri-border)">NRI</span>
+        </div>
+      </div>
+      <div class="hub-card" onclick="goMedsAP()">
+        <div class="hub-card-icon">⊗</div>
+        <div class="hub-card-title">Antipsychotika</div>
+        <div class="hub-card-sub">Atypische und klassische Antipsychotika nach Generation</div>
+        <div class="hub-card-pills">
+          <span class="hub-pill" style="background:rgba(79,195,247,0.1);color:#4fc3f7;border:1px solid rgba(79,195,247,0.3)">AAP</span>
+          <span class="hub-pill" style="background:rgba(255,138,101,0.1);color:#ff8a65;border:1px solid rgba(255,138,101,0.3)">KAP</span>
+        </div>
+      </div>
+    </div>`;
+}
+
+const AD_FILTERS = ['all', 'SSRI', 'SNRI', 'TZA', 'MAO', 'NRI', 'Andere'];
+const AP_FILTERS = ['all', 'AAP', 'KAP'];
+
+function showFilterPills(group) {
+  const allowed = group === 'ad' ? AD_FILTERS : AP_FILTERS;
+  document.querySelectorAll('#filter-bar .pill').forEach(p => {
+    p.style.display = allowed.includes(p.dataset.filter) ? '' : 'none';
+  });
+}
+
+function goMedsAD() {
+  showFilterPills('ad');
+  setFilter('all', document.querySelector('[data-filter="all"]'));
+  setView('meds', null);
+}
+
+function goMedsAP() {
+  showFilterPills('ap');
+  setFilter('AAP', document.querySelector('[data-filter="AAP"]'));
+  setView('meds', null);
+}
+
+function goHub() {
+  if (activeView === 'med-detail') setView('meds', null);
+  else if (activeView === 'meds') setView('meds-hub', null);
+  else if (activeView === 'rec-detail') setView('rezept', null);
+  else if (activeView === 'krankheit-detail') setView('krankheit', null);
+  else setView('hub', null);
+}
 
 function handleSearch() {
-  if (activeView === 'hub' || activeView === 'quiz') return;
+  if (activeView === 'hub' || activeView === 'quiz' || activeView === 'meds-hub' || activeView === 'med-detail' || activeView === 'rec-detail' || activeView === 'krankheit-detail') return;
   if (activeView === 'meds') renderSidebar();
   else if (activeView === 'rezept') renderReceptorSidebar();
   else renderKrankheitsbilderSidebar();
@@ -195,11 +253,12 @@ function handleSearch() {
 function setView(view, el) {
   activeView = view;
   const isHub = view === 'hub';
+  const isMedsHub = view === 'meds-hub';
 
   document.getElementById('back-btn').style.display = isHub ? 'none' : '';
   document.getElementById('filter-bar').style.display = (!isHub && view === 'meds') ? '' : 'none';
-  document.getElementById('main').classList.toggle('hub-layout', isHub);
-  document.getElementById('search').closest('.search-wrap').style.display = isHub ? 'none' : '';
+  document.getElementById('main').classList.toggle('hub-layout', isHub || isMedsHub);
+  document.getElementById('search').closest('.search-wrap').style.display = (isHub || isMedsHub) ? 'none' : '';
 
   document.documentElement.style.setProperty(
     '--chrome-height',
@@ -207,6 +266,31 @@ function setView(view, el) {
   );
 
   if (isHub) { renderHub(); return; }
+  if (isMedsHub) { renderMedsHub(); return; }
+
+  if (view === 'med-detail') {
+    document.getElementById('main').classList.add('hub-layout');
+    document.getElementById('search').closest('.search-wrap').style.display = 'none';
+    document.documentElement.style.setProperty('--chrome-height', '58px');
+    renderDetail();
+    return;
+  }
+
+  if (view === 'rec-detail') {
+    document.getElementById('main').classList.add('hub-layout');
+    document.getElementById('search').closest('.search-wrap').style.display = 'none';
+    document.documentElement.style.setProperty('--chrome-height', '58px');
+    renderReceptorDetail();
+    return;
+  }
+
+  if (view === 'krankheit-detail') {
+    document.getElementById('main').classList.add('hub-layout');
+    document.getElementById('search').closest('.search-wrap').style.display = 'none';
+    document.documentElement.style.setProperty('--chrome-height', '58px');
+    renderKrankheitDetail();
+    return;
+  }
 
   if (view === 'quiz') {
     document.getElementById('main').classList.add('hub-layout');
@@ -272,8 +356,7 @@ function renderReceptorSidebar() {
 function showRec(name) {
   activeRec = RECEPTORS.find(r => r.name === name);
   if (!activeRec) return;
-  renderReceptorSidebar();
-  renderReceptorDetail();
+  setView('rec-detail', null);
 }
 
 function renderReceptorDetail() {
@@ -339,7 +422,9 @@ function renderReceptorDetail() {
         <div class="section-content"><ul>${besondList}</ul></div>
       </div>` : ''}
     </div>
+    <div id="mini-quiz-wrap" class="mini-quiz-wrap"></div>
   `;
+  if (window.initMiniQuiz) window.initMiniQuiz('rec', r);
 }
 
 function hexToRgba(hex, alpha) {
@@ -393,8 +478,7 @@ function renderKrankheitsbilderSidebar() {
 function showKrankheit(id) {
   activeKrankheit = KRANKHEITSBILDER.find(k => k.id === id);
   if (!activeKrankheit) return;
-  renderKrankheitsbilderSidebar();
-  renderKrankheitDetail();
+  setView('krankheit-detail', null);
 }
 
 function renderKrankheitDetail() {
@@ -449,7 +533,9 @@ function renderKrankheitDetail() {
         <div class="section-content"><ul>${k.merksaetze.map(m => `<li>${m}</li>`).join('')}</ul></div>
       </div>` : ''}
     </div>
+    <div id="mini-quiz-wrap" class="mini-quiz-wrap"></div>
   `;
+  if (window.initMiniQuiz) window.initMiniQuiz('kb', k);
 }
 
 window.setFilter = setFilter;
@@ -460,5 +546,7 @@ window.setView = setView;
 window.showRec = showRec;
 window.showKrankheit = showKrankheit;
 window.goHub = goHub;
+window.goMedsAD = goMedsAD;
+window.goMedsAP = goMedsAP;
 
 setView('hub', null);

@@ -137,6 +137,8 @@ body {
 .pill[data-filter="MAO"].active { background: var(--mao); }
 .pill[data-filter="NRI"].active { background: var(--nri); }
 .pill[data-filter="Andere"].active { background: var(--other); }
+.pill[data-filter="AAP"].active { background: #4fc3f7; }
+.pill[data-filter="KAP"].active { background: #ff8a65; }
 
 /* MAIN LAYOUT */
 .main {
@@ -699,3 +701,20 @@ body {
   .quiz-container { padding: 1.2rem; }
   .hub-card-quiz { flex-direction: column; align-items: flex-start; }
 }
+
+/* Mini-quiz — contextual section at bottom of detail pages */
+.mini-quiz-wrap {
+  max-width: 680px;
+  margin: 2.5rem auto 2.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+}
+.mq-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.7rem; }
+.mq-label { font-size: 0.65rem; font-family: 'IBM Plex Mono', monospace; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.1em; }
+.mq-counter { font-size: 0.65rem; font-family: 'IBM Plex Mono', monospace; color: var(--text-dim); }
+.mq-progress-bar { height: 2px; background: var(--border); border-radius: 2px; overflow: hidden; margin-bottom: 0.2rem; }
+.mq-progress-fill { height: 100%; background: var(--accent); border-radius: 2px; transition: width 0.3s; }
+.mq-question { font-size: 0.95rem; font-weight: 400; color: var(--text); line-height: 1.65; margin: 1rem 0 1.2rem; }
+.mq-results { display: flex; align-items: baseline; gap: 0.7rem; margin-top: 0.8rem; }
+.mq-results-score { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--accent); }
+.mq-results-sub { font-size: 0.8rem; color: var(--text-muted); }
