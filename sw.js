@@ -1,14 +1,18 @@
-const CACHE = 'psychpharma-v3';
+const CACHE = 'psychpharma-v4';
 
 const ASSETS = [
   './index.html',
   './app.js',
   './quiz.js',
+  './mini-quiz.js',
   './style.css',
   './data/medications.js',
+  './data/antipsychotika.js',
   './data/receptors.js',
   './data/krankheitsbilder/depression.js',
   './data/krankheitsbilder/ptbs.js',
+  './data/krankheitsbilder/schizophrenie.js',
+  './data/krankheitsbilder/zwangsstoerung.js',
   './data/quiz-fakten.js',
   './manifest.json',
   './icons/icon.png',
